@@ -1,4 +1,4 @@
-# vagrant init precise64 http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box
+# vagrant init centos64 https://dl.dropboxusercontent.com/s/w3lbekm7eunrskm/centos-7.0-x86_64.box
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -7,9 +7,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "hashicorp/centos64"
 
-  config.vm.synced_folder ".", "/etc/puppet/modules/ohmyzsh"
+  config.vm.synced_folder ".", "/etc/puppet/modules/ohmyfish"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "tests"

@@ -3,4 +3,4 @@ fixtures:
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib"
     wget: "https://github.com/maestrodev/puppet-wget.git"
   symlinks:
-    ohmyzsh: "#{source_dir}"
+    ohmyfish: "#{source_dir}"

@@ -1,7 +1,7 @@
-class { 'ohmyzsh': }
+class { 'ohmyfish': }
 
 # for a single user
-ohmyzsh::install { 'vagrant': }->
-ohmyzsh::upgrade { 'vagrant': }
+ohmyfish::install { 'vagrant': }->
+ohmyfish::upgrade { 'vagrant': }
 
-ohmyzsh::install { ['one', 'two']: }
+ohmyfish::install { ['one', 'two']: }
