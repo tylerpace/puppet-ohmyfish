@@ -1,3 +1,7 @@
+## WARNING: PROJECT IS IN AN ALPHA STATE
+
+This project is currently in an alpha state and is completely untested and most likely not in any working order. Do not take anything you see here as truth until this warning is removed.
+
 # puppet-ohmyfish
 
 This module installs the [Fish](http://www.fishshell.com) shell and the [Oh My Fish!](https://github.com/bpinto/oh-my-fish) framework via [Puppet](http://puppetlabs.com/). The module supports basic management of Fish and oh-my-fish including the installation of themes and plugins.
