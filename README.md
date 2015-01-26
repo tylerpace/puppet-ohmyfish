@@ -1,6 +1,6 @@
 # puppet-ohmyfish
 
-This module installs the [Fish](http://www.fishshell.com) shell and the [Oh My Fish!](https://github.com/bpinto/oh-my-fish) framework via [Puppet](http://puppetlabs.com/). The module supports basic management of oh-my-fish including the installation of themes and plugins.
+This module installs the [Fish](http://www.fishshell.com) shell and the [Oh My Fish!](https://github.com/bpinto/oh-my-fish) framework via [Puppet](http://puppetlabs.com/). The module supports basic management of Fish and oh-my-fish including the installation of themes and plugins.
 
 ## Usage
 
