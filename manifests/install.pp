@@ -1,31 +1,27 @@
-# == Define: ohmyzsh::install
+# == Define: ohmyfish::install
 #
-# This is the ohmyzsh module. It installs oh-my-zsh for a user and changes
-# their shell to zsh. It has been tested under Ubuntu.
-#
-# This module is called ohmyzsh as Puppet does not support hyphens in module
-# names.
-#
-# oh-my-zsh is a community-driven framework for managing your zsh configuration.
+# View README.md for full documentation.
 #
 # === Parameters
 #
-# set_sh: (boolean) whether to change the user shell to zsh
+# set_sh: (boolean) whether to change the user shell to fish
 #
 # === Authors
 #
 # Leon Brocard <acme@astray.com>
 # Zan Loy <zan.loy@gmail.com>
+# Tyler Pace <tyler.pace@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014
+# Copyright 2015
 #
-define ohmyzsh::install(
+
+define ohmyfish::install(
   $set_sh = false,
 ) {
 
-  include ohmyzsh::params
+  include ohmyfish::params
 
   if ! defined(Package['git']) {
     package { 'git':
@@ -33,8 +29,8 @@ define ohmyzsh::install(
     }
   }
 
-  if ! defined(Package['zsh']) {
-    package { 'zsh':
+  if ! defined(Package['fish']) {
+    package { 'fish':
       ensure => present,
     }
   }
@@ -42,39 +38,39 @@ define ohmyzsh::install(
   if $name == 'root' {
     $home = '/root'
   } else {
-    $home = "${ohmyzsh::params::home}/${name}"
+    $home = "${ohmyfish::params::home}/${name}"
   }
 
-  exec { "ohmyzsh::git clone ${name}":
-    creates => "${home}/.oh-my-zsh",
-    command => "git clone https://github.com/robbyrussell/oh-my-zsh.git ${home}/.oh-my-zsh",
+  exec { "ohmyfish::git clone ${name}":
+    creates => "${home}/.oh-my-fish",
+    command => "git clone https://github.com/bpinto/oh-my-fish.git ${home}/.oh-my-fish",
     path    => ['/bin', '/usr/bin'],
     onlyif  => "getent passwd ${name} | cut -d : -f 6 | xargs test -e",
     user    => $name,
     require => Package['git'],
   }
 
-  exec { "ohmyzsh::cp .zshrc ${name}":
-    creates => "${home}/.zshrc",
-    command => "cp ${home}/.oh-my-zsh/templates/zshrc.zsh-template ${home}/.zshrc",
+  exec { "ohmyfish::cp config.fish ${name}":
+    creates => "${home}/.config/fish/config.fish",
+    command => "cp ${home}/.oh-my-fish/templates/config.fish ${home}/.config/fish/config.fish",
     path    => ['/bin', '/usr/bin'],
     onlyif  => "getent passwd ${name} | cut -d : -f 6 | xargs test -e",
     user    => $name,
-    require => Exec["ohmyzsh::git clone ${name}"],
+    require => Exec["ohmyfish::git clone ${name}"],
   }
 
   if $set_sh {
     if ! defined(User[$name]) {
-      user { "ohmyzsh::user ${name}":
+      user { "ohmyfish::user ${name}":
         ensure     => present,
         name       => $name,
         managehome => true,
-        shell      => $ohmyzsh::params::zsh,
-        require    => Package['zsh'],
+        shell      => $ohmyfish::params::fish,
+        require    => Package['fish'],
       }
     } else {
       User <| title == $name |> {
-        shell => $ohmyzsh::params::zsh
+        shell => $ohmyfish::params::fish
       }
     }
   }

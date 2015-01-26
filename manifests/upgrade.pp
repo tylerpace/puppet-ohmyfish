@@ -1,12 +1,6 @@
 # == Define: ohmyzsh::upgrade
 #
-# This is the ohmyzsh module. It installs oh-my-zsh for a user and changes
-# their shell to zsh. It has been tested under Ubuntu.
-#
-# This module is called ohmyzsh as Puppet does not support hyphens in module
-# names.
-#
-# oh-my-zsh is a community-driven framework for managing your zsh configuration.
+# View README.md for full documentation.
 #
 # === Parameters
 #
@@ -16,14 +10,16 @@
 #
 # Leon Brocard <acme@astray.com>
 # Zan Loy <zan.loy@gmail.com>
+# Tyler Pace <tyler.pace@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014
+# Copyright 2015
 #
-define ohmyzsh::upgrade {
 
-  include ohmyzsh::params
+define ohmyfish::upgrade {
+
+  include ohmyfish::params
 
   if ! defined(Package['git']) {
     package { 'git':
@@ -34,10 +30,10 @@ define ohmyzsh::upgrade {
   if $name == 'root' {
     $home = '/root'
   } else {
-    $home = "${ohmyzsh::params::home}/${name}"
+    $home = "${ohmyfish::params::home}/${name}"
   }
 
-  exec { "ohmyzsh::git upgrade ${name}":
+  exec { "ohmyfish::git upgrade ${name}":
     command => 'git pull --rebase --stat origin master',
     path    => ['/bin', '/usr/bin'],
     cwd     => "${home}/.oh-my-zsh",

@@ -1,43 +1,39 @@
-# == Define: ohmyzsh::theme
+# == Define: ohmyfish::theme
 #
-# This is the ohmyzsh module. It installs oh-my-zsh for a user and changes
-# their shell to zsh. It has been tested under Ubuntu.
-#
-# This module is called ohmyzsh as Puppet does not support hyphens in module
-# names.
-#
-# oh-my-zsh is a community-driven framework for managing your zsh configuration.
+# View README.md for full documentation.
 #
 # === Parameters
 #
-# set_sh: (boolean) whether to change the user shell to zsh
+# theme: (string) name of a fish theme
 #
 # === Authors
 #
 # Leon Brocard <acme@astray.com>
 # Zan Loy <zan.loy@gmail.com>
+# Tyler Pace <tyler.pace@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014
+# Copyright 2015
 #
-define ohmyzsh::theme(
+
+define ohmyfish::theme(
   $theme = 'clean',
 ) {
 
-  include ohmyzsh::params
+  include ohmyfish::params
 
   if $name == 'root' {
     $home = '/root'
   } else {
-    $home = "${ohmyzsh::params::home}/${name}"
+    $home = "${ohmyfish::params::home}/${name}"
   }
 
   file_line { "${name}-${theme}-install":
     path    => "${home}/.zshrc",
-    line    => "ZSH_THEME=\"${theme}\"",
-    match   => '^ZSH_THEME',
-    require => Ohmyzsh::Install[$name]
+    line    => "set fish_theme ${theme}",
+    match   => '^set fish_theme',
+    require => Ohmyfish::Install[$name]
   }
 
 }

@@ -1,12 +1,30 @@
-# Parameters class for ohmyzsh
-class ohmyzsh::params {
+# == Define: ohmyfish::params
+#
+# View README.md for full documentation.
+#
+# === Parameters
+#
+# None.
+#
+# === Authors
+#
+# Leon Brocard <acme@astray.com>
+# Zan Loy <zan.loy@gmail.com>
+# Tyler Pace <tyler.pace@gmail.com>
+#
+# === Copyright
+#
+# Copyright 2015
+#
+
+class ohmyfish::params {
 
   case $::osfamily {
     'Redhat': {
-      $zsh = '/bin/zsh'
+      $fish = '/usr/bin/fish'
     }
     default: {
-      $zsh = '/usr/bin/zsh'
+      $fish = '/usr/bin/fish'
     }
   }
 

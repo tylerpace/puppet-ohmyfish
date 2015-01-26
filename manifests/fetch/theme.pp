@@ -1,4 +1,25 @@
-define ohmyzsh::fetch::theme (
+# == Define: ohmyfish::fetch::theme
+#
+# View README.md for full documentation.
+#
+# === Parameters
+#
+# url: (string) url of the fish theme to install
+#
+# === Authors
+#
+# Leon Brocard <acme@astray.com>
+# Zan Loy <zan.loy@gmail.com>
+# Tyler Pace <tyler.pace@gmail.com>
+#
+# === Copyright
+#
+# Copyright 2015
+#
+
+## fetch and install themes
+
+define ohmyfish::fetch::theme (
   $filename,
   $url = 'UNSET',
   $source = 'UNSET',
@@ -14,19 +35,19 @@ define ohmyzsh::fetch::theme (
     $home = "/home/${name}"
   }
 
-  $themepath = "${home}/.oh-my-zsh/custom/themes"
+  $themepath = "${home}/.oh-my-fish/custom/themes"
   $fullpath = "${themepath}/${filename}"
 
   if ! defined(File[$themepath]) {
     file { $themepath:
       ensure  => directory,
       owner   => $name,
-      require => Ohmyzsh::Install[$name],
+      require => Ohmyfish::Install[$name],
     }
   }
 
   if $url != 'UNSET' {
-    wget::fetch { "ohmyzsh::fetch-${name}-${filename}":
+    wget::fetch { "ohmyfish::fetch-${name}-${filename}":
       source      => $url,
       destination => $fullpath,
       user        => $name,

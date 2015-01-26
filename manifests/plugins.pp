@@ -1,36 +1,32 @@
-# == Define: ohmyzsh::plugins
+# == Define: ohmyfish::plugins
 #
-# This is the ohmyzsh module. It installs oh-my-zsh for a user and changes
-# their shell to zsh. It has been tested under Ubuntu.
-#
-# This module is called ohmyzsh as Puppet does not support hyphens in module
-# names.
-#
-# oh-my-zsh is a community-driven framework for managing your zsh configuration.
+# View README.md for full documentation.
 #
 # === Parameters
 #
-# plugins: (string) space separated list of tmux plugins
+# plugins: (string) space separated list of fish plugins
 #
 # === Authors
 #
 # Leon Brocard <acme@astray.com>
 # Zan Loy <zan.loy@gmail.com>
+# Tyler Pace <tyler.pace@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2014
+# Copyright 2015
 #
-define ohmyzsh::plugins(
+
+define ohmyfish::plugins(
   $plugins = 'git',
 ) {
 
-  include ohmyzsh::params
+  include ohmyfish::params
 
   if $name == 'root' {
     $home = '/root'
   } else {
-    $home = "${ohmyzsh::params::home}/${name}"
+    $home = "${ohmyfish::params::home}/${name}"
   }
 
   if is_array($plugins) {
@@ -41,10 +37,10 @@ define ohmyzsh::plugins(
   }
 
   file_line { "${name}-${plugins_real}-install":
-    path    => "${home}/.zshrc",
-    line    => "plugins=(${plugins_real})",
-    match   => '^plugins=',
-    require => Ohmyzsh::Install[$name]
+    path    => "${home}/.config/fish/config.fish",
+    line    => "set fish_plugins ${plugins_real}",
+    match   => '^set fish_plugins',
+    require => Ohmyfish::Install[$name]
   }
 
 }
