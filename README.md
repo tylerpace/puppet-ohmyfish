@@ -1,45 +1,38 @@
-# puppet-ohmyzsh
-[![Build Status](https://travis-ci.org/zanloy/puppet-ohmyzsh.svg?branch=master)](https://travis-ci.org/zanloy/puppet-ohmyzsh)
+# puppet-ohmyfish
 
-This is a [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) module. It
-installs oh-my-zsh for a user and can change their shell to zsh. It can install
-and configure themes and plugins for users.
-
-oh-my-zsh is a community-driven framework for managing your zsh configuration.
-See [https://github.com/robbyrussell/oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
-for more details.
+This module installs the [Fish](http://www.fishshell.com) shell and the [Oh My Fish!](https://github.com/bpinto/oh-my-fish) framework via [Puppet](http://puppetlabs.com/). The module supports basic management of oh-my-fish including the installation of themes and plugins.
 
 ## Usage
 
 ```
 # for a single user
-ohmyzsh::install { 'user1': }
+ohmyfish::install { 'user1': }
 
-# for multiple users in one shot and set their shell to zsh
-ohmyzsh::install { ['root', 'user1']: set_sh => true }
+# for multiple users in one shot and set their shell to fish
+ohmyfish::install { ['root', 'user1']: set_sh => true }
 
 # install a theme for a user
-ohmyzsh::fetch::theme { 'root': url => 'http://zanloy.com/files/dotfiles/oh-my-zsh/squared.zsh-theme' }
+ohmyfish::fetch::theme { 'root': url => 'http://.com/files/dotfiles/Fish/squared.zsh-theme' }
 
 # set a theme for a user
-ohmyzsh::theme { ['root', 'user1']: } # would install 'clean' theme as default
+ohmyfish::theme { ['root', 'user1']: } # would install 'clean' theme as default
 
-ohmyzsh::theme { ['root', 'user1']: theme => 'robbyrussell' } # specific theme
+ohmyfish::theme { ['root', 'user1']: theme => 'robbyrussell' } # specific theme
 
 # activate plugins for a user
-ohmyzsh::plugins { 'user1': plugins => 'git github' }
+ohmyfish::plugins { 'user1': plugins => 'git github' }
 
-# upgrade oh-my-zsh for a single user
-ohmyzsh::upgrade { 'user1': }
+# upgrade Fish for a single user
+ohmyfish::upgrade { 'user1': }
 ```
 
 Support
 -------
 
-Please log tickets and issues on [GitHub](https://github.com/zanloy/puppet-ohmyzsh)
+Please log tickets and issues on [GitHub](https://github.com/tylerpace/puppet-ohmyfish).
 
 
 Acknowlegments
 --------------
 
-This module was originally a fork of [acme/ohmyzsh](https://github.com/acme/puppet-acme-oh-my-zsh) at version 0.1.3
+This module was originally a fork of [zanloy/puppet-ohmyzsh](https://github.com/zanloy/puppet-ohmyzsh) at version 0.1.2.
